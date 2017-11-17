@@ -13,7 +13,6 @@
  * This is a php file for handling admin process for post.
  *
 */
-
 /**
  * Fungsi ini digunakan untuk mencegah file ini diakses langsung tanpa melalui router.
  *
@@ -24,7 +23,6 @@ if (!defined('CONF_STRUCTURE')) {
 	header('location:index.html');
 	exit;
 }
-
 /**
  * Fungsi ini digunakan untuk mencegah file ini diakses langsung tanpa login akses terlebih dahulu.
  *
@@ -35,10 +33,8 @@ if (empty($_SESSION['namauser']) AND empty($_SESSION['passuser']) AND $_SESSION[
 	header('location:index.php');
 	exit;
 }
-
 class Post extends PoCore
 {
-
 	/**
 	 * Fungsi ini digunakan untuk menginisialisasi class utama.
 	 *
@@ -49,7 +45,6 @@ class Post extends PoCore
 	{
 		parent::__construct();
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menampilkan halaman index post.
 	 *
@@ -95,7 +90,6 @@ class Post extends PoCore
 		<?=$this->pohtml->dialogDelete('post');?>
 		<?php
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menampilkan data json pada tabel.
 	 *
@@ -180,7 +174,6 @@ class Post extends PoCore
 		}
 		echo json_encode(SSP::simple($_POST, $this->poconnect, $table, $primarykey, $columns, $joinquery, $extrawhere));
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menampilkan dan memproses halaman add post.
 	 *
@@ -378,7 +371,6 @@ class Post extends PoCore
 		</div>
 		<?php
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menampilkan dan memproses halaman edit post.
 	 *
@@ -736,7 +728,6 @@ class Post extends PoCore
 		</div>
 		<?php
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menampilkan halaman import.
 	 *
@@ -782,7 +773,6 @@ class Post extends PoCore
 		</div>
 		<?php
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk memproses halaman import.
 	 *
@@ -863,7 +853,6 @@ class Post extends PoCore
 												} else {
 													$datapic = array();
 												}
-
 												$data = array(
 													'seotitle' => $item->seotitle,
 													'tag' => $item->tag,
@@ -876,7 +865,6 @@ class Post extends PoCore
 												$datafinal = array_merge($data, $datapic);
 												$query_post = $this->podb->insertInto('post')->values($datafinal);
 												$query_post->execute();
-
 												$expl = explode(",", $item->tag);
 												$total = count($expl);
 												for($i=0; $i<$total; $i++){
@@ -900,12 +888,10 @@ class Post extends PoCore
 														$query_tag->execute();
 													}
 												}
-
 												$last_post = $this->podb->from('post')
 													->orderBy('id_post DESC')
 													->limit(1)
 													->fetch();
-
 												$count_cat_seotitle = $this->podb->from('category')
 													->where('seotitle', $this->postring->seo_title($item->category))
 													->count();
@@ -936,14 +922,12 @@ class Post extends PoCore
 													$query_category_description->execute();
 													$id_category = $last_category['id_category'];
 												}
-
 												$post_category = array(
 													'id_post' => $last_post['id_post'],
 													'id_category' => $id_category,
 												);
 												$query_post_category = $this->podb->insertInto('post_category')->values($post_category);
 												$query_post_category->execute();
-
 												$post_description = array(
 													'id_post' => $last_post['id_post'],
 													'id_language' => '1',
@@ -980,7 +964,6 @@ class Post extends PoCore
 													} else {
 														$datapic = array();
 													}
-
 													$wpdatetime = explode(' ', $item->children('wp', true)->post_date);
 													$data = array(
 														'seotitle' => $this->postring->seo_title($item->title),
@@ -994,12 +977,10 @@ class Post extends PoCore
 													$datafinal = array_merge($data, $datapic);
 													$query_post = $this->podb->insertInto('post')->values($datafinal);
 													$query_post->execute();
-
 													$last_post = $this->podb->from('post')
 														->orderBy('id_post DESC')
 														->limit(1)
 														->fetch();
-
 													$count_cat_seotitle = $this->podb->from('category')
 														->where('seotitle', $this->postring->seo_title($item->category[0]))
 														->count();
@@ -1030,14 +1011,12 @@ class Post extends PoCore
 														$query_category_description->execute();
 														$id_category = $last_category['id_category'];
 													}
-
 													$post_category = array(
 														'id_post' => $last_post['id_post'],
 														'id_category' => $id_category,
 													);
 													$query_post_category = $this->podb->insertInto('post_category')->values($post_category);
 													$query_post_category->execute();
-
 													$post_description = array(
 														'id_post' => $last_post['id_post'],
 														'id_language' => '1',
@@ -1093,7 +1072,6 @@ class Post extends PoCore
 			<?php
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk memproses headline post.
 	 *
@@ -1118,7 +1096,6 @@ class Post extends PoCore
 			$query_post->execute();
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menampilkan dan memproses halaman hapus post.
 	 *
@@ -1164,7 +1141,6 @@ class Post extends PoCore
 			}
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menampilkan dan memproses halaman hapus multi post.
 	 *
@@ -1215,7 +1191,6 @@ class Post extends PoCore
 			}
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menampilkan dan memproses halaman hapus gambar terpilih.
 	 *
@@ -1238,7 +1213,6 @@ class Post extends PoCore
 			$query_post->execute();
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk mengambil data kategori dari database.
 	 *
@@ -1259,7 +1233,6 @@ class Post extends PoCore
 			}
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk mengambil data tag dari database.
 	 *
@@ -1282,7 +1255,6 @@ class Post extends PoCore
 			echo json_encode($tags);
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk memproses tambah gambar galeri.
 	 *
@@ -1325,7 +1297,6 @@ class Post extends PoCore
 			}
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk memproses hapus gambar galeri terpilih.
 	 *
@@ -1343,7 +1314,6 @@ class Post extends PoCore
 			$query_gal->execute();
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menulis post di facebook.
 	 *
@@ -1360,22 +1330,18 @@ class Post extends PoCore
 		}
 		if (!empty($_GET['id'])) {
 			require_once '../'.DIR_CON.'/component/oauth/facebook/Facebook/autoload.php';
-
 			$currentOauthfb = $this->podb->from('oauth')->fetchAll();
 			$appIdOauthfb = $currentOauthfb[0]['oauth_key'];
 			$secretOauthfb = $currentOauthfb[0]['oauth_secret'];
 			$idOauthfb = $currentOauthfb[0]['oauth_id'];
 			$tokenOauthfb = $currentOauthfb[0]['oauth_token1'];
 			$fbtypeOauthfb = $currentOauthfb[0]['oauth_fbtype'];
-
 			$fb = new Facebook\Facebook([
 				'app_id'  => $appIdOauthfb,
 				'app_secret' => $secretOauthfb,
 				'default_graph_version' => 'v2.5'
 			]);
-
 			$helper = $fb->getRedirectLoginHelper();
-
 			try {
 				$accessToken = $helper->getAccessToken();
 			} catch(Facebook\Exceptions\FacebookResponseException $e) {
@@ -1385,10 +1351,8 @@ class Post extends PoCore
 				echo 'Facebook SDK returned an error: ' . $e->getMessage();
 				exit;
 			}
-
 			if (isset($accessToken)) {
 				$oAuth2Client = $fb->getOAuth2Client();
-
 				if (!$accessToken->isLongLived()) {
 					try {
 						$accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
@@ -1398,7 +1362,6 @@ class Post extends PoCore
 						exit;
 					}
 				}
-
 				$current_post = $this->podb->from('post')
 					->select('post_description.title')
 					->leftJoin('post_description ON post_description.id_post = post.id_post')
@@ -1441,7 +1404,6 @@ class Post extends PoCore
 			}
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menulis post di twitter.
 	 *
@@ -1458,20 +1420,16 @@ class Post extends PoCore
 		}
 		if (!empty($_GET['id'])) {
 			require_once '../'.DIR_CON.'/component/oauth/twitter/Twitter/twitteroauth.php';
-
 			$currentOauthtw = $this->podb->from('oauth')->fetchAll();
 			$conkeyOauthtw = $currentOauthtw[1]['oauth_key'];
 			$consecretOauthtw = $currentOauthtw[1]['oauth_secret'];
 			$idOauthtw = $currentOauthtw[1]['oauth_id'];
 			$tokenOauthtw = $currentOauthtw[1]['oauth_token1'];
 			$tokensecretOauthtw = $currentOauthtw[1]['oauth_token2'];
-
 			define('CONSUMER_KEY', ''.$conkeyOauthtw.'');
 			define('CONSUMER_SECRET', ''.$consecretOauthtw.'');
 			define('OAUTH_CALLBACK', ''.WEB_URL.DIR_ADM.'/admin.php?mod=post');
-
 			$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $tokenOauthtw, $tokensecretOauthtw);
-
 			$current_post = $this->podb->from('post')
 				->select('post_description.title')
 				->leftJoin('post_description ON post_description.id_post = post.id_post')
@@ -1482,7 +1440,6 @@ class Post extends PoCore
 				->where('post_description.id_post', $current_post['id_post'])
 				->where('post_description.id_language', '1')
 				->fetch();
-
 			$params = array(
 				"status" => $paglang['title'].", Link : ".$this->postring->permalink(rtrim(WEB_URL, '/'), $current_post)
 			);
@@ -1494,7 +1451,6 @@ class Post extends PoCore
 			}
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk mengirim email ke para pelanggan.
 	 *
@@ -1567,7 +1523,6 @@ class Post extends PoCore
 			echo "200";
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menggenerate checkbox kategori.
 	 *
@@ -1577,12 +1532,11 @@ class Post extends PoCore
 	public function generate_checkbox($id, $type, $id_post = null)
 	{
 		if ($type == 'add') {
-			return $this->generate_child($id, "0");
+			return $this->generate_child($id, 0);
 		} else {
-			return $this->generate_child_update($id, $id_post, "0");
+			return $this->generate_child_update($id, $id_post, 0);
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menggenerate child checkbox kategori.
 	 *
@@ -1608,16 +1562,16 @@ class Post extends PoCore
 			$i++;
 			foreach ($catfuns as $catfun) {
 				$explus = $exp + 20;
-				$child = $this->generate_child($catfun['id_category'], $explus."px");
+				$child = $this->generate_child($catfun['id_category'], $explus);
 				$html .= "\n\t".$indent."";
 				if ($child) {
 					$i--;
-					$html .= "<li><input type=\"checkbox\" name=\"id_category[]\" value='".$catfun['id_category']."' style='margin-left:".$exp.";' /> ";
+					$html .= "<li><input type=\"checkbox\" name=\"id_category[]\" value='".$catfun['id_category']."' style='margin-left:".$exp."px;' /> ";
 					$html .= $catfun['title'];
 					$html .= $child;
 					$html .= "\n\t".$indent."";
 				} else {
-					$html .= "<li><input type=\"checkbox\" name=\"id_category[]\" value='".$catfun['id_category']."' style='margin-left:".$exp.";' /> ";
+					$html .= "<li><input type=\"checkbox\" name=\"id_category[]\" value='".$catfun['id_category']."' style='margin-left:".$exp."px;' /> ";
 					$html .= $catfun['title'];
 				}
 				$html .= '</li>';
@@ -1628,7 +1582,6 @@ class Post extends PoCore
 			return false;
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk menggenerate update child checkbox kategori.
 	 *
@@ -1666,16 +1619,16 @@ class Post extends PoCore
 					$checked = '';
 				}
 				$explus = $exp + 20;
-				$child = $this->generate_child_update($catfun['id_category'], $id_post, $explus."px");
+				$child = $this->generate_child_update($catfun['id_category'], $id_post, $explus);
 				$html .= "\n\t".$indent."";
 				if ($child) {
 					$i--;
-					$html .= "<li><input type=\"checkbox\" name=\"id_category[]\" value='".$catfun['id_category']."' style='margin-left:".$exp.";' ".$checked." /> ";
+					$html .= "<li><input type=\"checkbox\" name=\"id_category[]\" value='".$catfun['id_category']."' style='margin-left:".$exp."px;' ".$checked." /> ";
 					$html .= $catfun['title'];
 					$html .= $child;
 					$html .= "\n\t".$indent."";
 				} else {
-					$html .= "<li><input type=\"checkbox\" name=\"id_category[]\" value='".$catfun['id_category']."' style='margin-left:".$exp.";' ".$checked." /> ";
+					$html .= "<li><input type=\"checkbox\" name=\"id_category[]\" value='".$catfun['id_category']."' style='margin-left:".$exp."px;' ".$checked." /> ";
 					$html .= $catfun['title'];
 				}
 				$html .= '</li>';
@@ -1686,7 +1639,6 @@ class Post extends PoCore
 			return false;
 		}
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk mencari attachment gambar wordpress.
 	 *
@@ -1707,7 +1659,6 @@ class Post extends PoCore
 		}
 		return $attachment_url;
 	}
-
 	/**
 	 * Fungsi ini digunakan untuk membuat progres bar.
 	 *
@@ -1723,5 +1674,4 @@ class Post extends PoCore
 			unset($_SESSION['progress_bar']);
 		}
 	}
-
 }
